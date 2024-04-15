@@ -2,12 +2,15 @@
 classDiagram
 class ISubject {
   <<interface>>
-  registerObserver()
-  removeObserver()
+  registerObserver(observer: IObserver )
+  removeObserver(observer: IObserver )
   notifyObservers()
 }
 
-class Subject
+class Subject{
+    +setState()
+    +getState()
+}
 
 Subject ..|> ISubject
 
