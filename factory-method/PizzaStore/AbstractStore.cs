@@ -9,25 +9,15 @@ namespace PizzaStore
 {
     
 
-    public class Store
+    public abstract class AbstractStore
     {
-        IPizzaFactory Factory;
-
-        public Store(IPizzaFactory factory)
-        {
-            this.Factory = factory;
-        }
-
+        public abstract Pizza CreatePizza(string type);
         public Pizza OrderPizza(String type) {
-            Pizza pizza;
-
-            pizza = Factory.CreatePizza(type);
-
+            Pizza pizza = CreatePizza(type);
             pizza.Prepare();
             pizza.Bake();
             pizza.Cut();
             pizza.Box();
-
             return pizza;
         }
       

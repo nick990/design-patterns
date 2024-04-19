@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace PizzaStore
 {
-    public class ChicagoPizzaFactory : IPizzaFactory
+    public class ChicagoPizzaStore : AbstractStore
     {
-        public Pizza CreatePizza(String type)
+        public override Pizza CreatePizza(String type)
         {
     
             Pizza pizza;

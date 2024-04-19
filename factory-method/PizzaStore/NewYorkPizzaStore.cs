@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace PizzaStore
 {
-    public class NewYorkPizzaFactory : IPizzaFactory
+    public class NewYorkPizzaStore : AbstractStore
     {
-        public Pizza CreatePizza(string type)
+        public override Pizza CreatePizza(string type)
         {
-    
             Pizza pizza;
 
             switch (type)

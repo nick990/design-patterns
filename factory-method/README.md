@@ -1,36 +1,36 @@
 # Factory Method
 ```mermaid
 classDiagram
-    class IProduct{
+    class Product{
         <<interface>>
     }
 
     class AbstractCreator{
         <<abstract>>
-        createProduct() IProduct*
+        createProduct() Product*
         anOperation()
     }
 
-    class ProductA{
+    class ConcreteProductA{
 
     }
-    ProductA ..|> IProduct
-    class ProductB{
+    ConcreteProductA ..|> Product
+    class ConcreteProductB{
 
     }
-    ProductB ..|> IProduct
+    ConcreteProductB ..|> Product
 
-    class CreatorA{
-
-    }
-    CreatorA --|> AbstractCreator
-    CreatorA --> ProductA
-
-    class CreatorB{
+    class ConcreteCreatorA{
 
     }
-    CreatorB --|> AbstractCreator
-    CreatorB --> ProductB
+    ConcreteCreatorA --|> AbstractCreator
+    ConcreteCreatorA --> ConcreteProductA
+
+    class ConcreteCreatorB{
+
+    }
+    ConcreteCreatorB --|> AbstractCreator
+    ConcreteCreatorB --> ConcreteProductB
 ```
 
 # PizzaStore
@@ -46,19 +46,20 @@ classDiagram
     DiavolaPizza --|> Pizza
     MargheritaNYPizza --|> Pizza
 
-    class IPizzaFactory{
-        <<interface>>
-        createPizza(tpye: string) Pizza 
-    }
-    IPizzaFactory --> Pizza
-    class NewYorkPizzaFactory
-    class ChicagoPizzaFactory
-    NewYorkPizzaFactory ..|> IPizzaFactory
-    ChicagoPizzaFactory ..|> IPizzaFactory
-
-    class Store{
-        factory : IPizzaFactory
+    class AbstractStore{
+        <<abstract>>
+        createPizza(type: string) Pizza*
         orderPizza(type: string) Pizza
     }
-    Store --> IPizzaFactory : factory
+    class NYPizzaStore
+    class ChicagoPizzaStore
+    NYPizzaStore --|> AbstractStore
+    ChicagoPizzaStore --|> AbstractStore
+
+    NYPizzaStore --> MargheritaNYPizza
+    NYPizzaStore --> DiavolaPizza
+    ChicagoPizzaStore --> MargheritaPizza
+    ChicagoPizzaStore --> DiavolaPizza
+
+
 ```
