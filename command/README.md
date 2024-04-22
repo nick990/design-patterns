@@ -23,15 +23,15 @@ Client --> ConcreteCommand
 # Remote Controller
 ```mermaid
 classDiagram
-class Command{
+class ICommand{
     <<interface>>
     execute()
     undo()
 }
 class LightOnCommand
 class LightOffCommand
-LightOnCommand --|> Command
-LightOffCommand --|> Command
+LightOnCommand --|> ICommand
+LightOffCommand --|> ICommand
 class Light{
     on()
     off()
@@ -39,11 +39,33 @@ class Light{
 LightOnCommand --> Light
 LightOffCommand --> Light
 class RemoteControl{
-    onCommands: Command[]
-    offCommands: Command[]
-    setCommand(slot:int, onCommand:Command, offCommand:Command)
+    onCommands: ICommand[]
+    offCommands: ICommand[]
+    setCommand(slot:int, onCommand:ICommand, offCommand:ICommand)
     onButtonWasPushed(slot:int)
     offButtonWasPushed(slot:int)
+    undoButtonWasPushed()
 }
-RemoteControl --o Command
+RemoteControl --o ICommand
+class Stereo{
+    on()
+    off()
+    setCD()
+    setRadio()
+    setDVD()
+    setVolume()
+}
+class StereoOffCommand
+class StereoOnWithCDCommand
+StereoOffCommand --|> ICommand
+StereoOnWithCDCommand --|> ICommand
+StereoOffCommand --> Stereo
+StereoOnWithCDCommand --> Stereo
+class MacroCommand {
+    commands: ICommand[]
+    execute()
+    undo()
+}
+MacroCommand --|> ICommand
+MacroCommand --o ICommand
 ```
