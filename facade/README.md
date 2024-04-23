@@ -45,3 +45,44 @@ classDiagram
     AdditionalFacade --> Class2
 
 ```
+# Video Converter
+```mermaid
+classDiagram
+    namespace Complex3rdPartyLib {
+        class VideoFile{
+            convertToFile() File
+        }
+        class CodecFactory
+        class MPEG4CompressionCodec
+        class OggCompressionCodec
+        class CodecFactory{
+            +extract(file: VideoFile): ICodec
+        }
+        class BitrateReader
+        class ICodec{
+            <<interface>>
+        }
+        class Buffer
+        class BitrateReader{
+            +read(filename: string, sourceCodec: ICodec) Buffer$
+            +convert(buffer: Buffer, destinationCodec: ICodec, string originalFilename) Buffer$
+        }
+    }
+    VideoFile ..> File
+    SimpleVideoConverter ..> File
+    BitrateReader ..> Buffer
+    CodecFactory ..> ICodec
+    MPEG4CompressionCodec ..|> ICodec
+    OggCompressionCodec ..|> ICodec
+    class SimpleVideoConverter {
+        +convert(filename: string, format: string) File
+    }
+    SimpleVideoConverter ..> VideoFile
+    SimpleVideoConverter ..> CodecFactory
+    SimpleVideoConverter ..> MPEG4CompressionCodec
+    SimpleVideoConverter ..> OggCompressionCodec
+    SimpleVideoConverter ..> BitrateReader
+    class File{
+
+    }
+```
